@@ -47,7 +47,7 @@
 ***En este apartado se encuentran los Laboratorios || Proyectos del Hito 3 por separado.***
 
 **<A href="https://github.com/EverTicona/Base-De-Datos-II/blob/main/HITO_3/LAB_H3.sql"> Todos los laboratorios del Hito3  ☞ [MYSQL] 💻 </A>**
-**<A href="https://github.com/EverTicona/Base-De-Datos-II/tree/main/HITO_3/DEFENZA%20HIT_3>Examen y Defenza Hito 3 ☞[MYSQL] 💻</A>**
+**<A href="https://github.com/EverTicona/Base-De-Datos-II/tree/main/HITO_3/DEFENZA%20HIT_3>Examen y Defenza Hito 3" ☞[MYSQL] 💻</A>**
 </p>
 
 
