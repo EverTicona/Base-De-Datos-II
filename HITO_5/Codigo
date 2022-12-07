@@ -1,0 +1,222 @@
+-- MariaDB dump 10.19  Distrib 10.11.0-MariaDB, for Win64 (AMD64)
+--
+-- Host: 127.0.0.1    Database: technology_center
+-- ------------------------------------------------------
+-- Server version	10.11.0-MariaDB
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `administracion`
+--
+
+DROP TABLE IF EXISTS `administracion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `administracion` (
+  `id_admin` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL,
+  `apellido` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `cargo` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_admin`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `administracion`
+--
+
+LOCK TABLES `administracion` WRITE;
+/*!40000 ALTER TABLE `administracion` DISABLE KEYS */;
+/*!40000 ALTER TABLE `administracion` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `caracteristicas_prod`
+--
+
+DROP TABLE IF EXISTS `caracteristicas_prod`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `caracteristicas_prod` (
+  `num_prod` int(11) NOT NULL AUTO_INCREMENT,
+  `id_prod` int(11) NOT NULL,
+  `procesador` varchar(30) NOT NULL,
+  `ram` varchar(30) NOT NULL,
+  `almacenamiento` varchar(30) NOT NULL,
+  `pantalla` varchar(30) NOT NULL,
+  `sistema_operativo` varchar(200) NOT NULL,
+  `camara` varchar(10) NOT NULL,
+  PRIMARY KEY (`num_prod`),
+  KEY `id_prod` (`id_prod`),
+  CONSTRAINT `caracteristicas_prod_ibfk_1` FOREIGN KEY (`id_prod`) REFERENCES `productos` (`id_prod`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `caracteristicas_prod`
+--
+
+LOCK TABLES `caracteristicas_prod` WRITE;
+/*!40000 ALTER TABLE `caracteristicas_prod` DISABLE KEYS */;
+/*!40000 ALTER TABLE `caracteristicas_prod` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `clientes`
+--
+
+DROP TABLE IF EXISTS `clientes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `clientes` (
+  `ci` varchar(20) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `apellido` varchar(100) NOT NULL,
+  `num_cell` int(11) NOT NULL,
+  `servicio` varchar(100) NOT NULL,
+  `id_prod` int(11) NOT NULL,
+  PRIMARY KEY (`ci`),
+  KEY `id_prod` (`id_prod`),
+  CONSTRAINT `clientes_ibfk_1` FOREIGN KEY (`id_prod`) REFERENCES `productos` (`id_prod`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `clientes`
+--
+
+LOCK TABLES `clientes` WRITE;
+/*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `marca_disp`
+--
+
+DROP TABLE IF EXISTS `marca_disp`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `marca_disp` (
+  `id_marca` int(11) NOT NULL AUTO_INCREMENT,
+  `marca` varchar(100) NOT NULL,
+  PRIMARY KEY (`id_marca`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `marca_disp`
+--
+
+LOCK TABLES `marca_disp` WRITE;
+/*!40000 ALTER TABLE `marca_disp` DISABLE KEYS */;
+/*!40000 ALTER TABLE `marca_disp` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `precios`
+--
+
+DROP TABLE IF EXISTS `precios`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `precios` (
+  `num_prod` int(11) NOT NULL AUTO_INCREMENT,
+  `precio_normal` int(11) NOT NULL,
+  `descuento` int(11) NOT NULL,
+  PRIMARY KEY (`num_prod`),
+  CONSTRAINT `precios_ibfk_1` FOREIGN KEY (`num_prod`) REFERENCES `caracteristicas_prod` (`num_prod`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `precios`
+--
+
+LOCK TABLES `precios` WRITE;
+/*!40000 ALTER TABLE `precios` DISABLE KEYS */;
+/*!40000 ALTER TABLE `precios` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `productos`
+--
+
+DROP TABLE IF EXISTS `productos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `productos` (
+  `id_prod` int(11) NOT NULL AUTO_INCREMENT,
+  `id_marca` int(11) NOT NULL,
+  `tipo` varchar(30) NOT NULL,
+  `nombre_pro` varchar(50) NOT NULL,
+  `cantidad` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_prod`),
+  KEY `id_marca` (`id_marca`),
+  CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`id_marca`) REFERENCES `marca_disp` (`id_marca`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `productos`
+--
+
+LOCK TABLES `productos` WRITE;
+/*!40000 ALTER TABLE `productos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `productos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `recibo`
+--
+
+DROP TABLE IF EXISTS `recibo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `recibo` (
+  `numero_compra` int(11) NOT NULL AUTO_INCREMENT,
+  `ci_cliente` varchar(20) NOT NULL,
+  `id_admin` int(11) NOT NULL,
+  `id_prod` int(11) NOT NULL,
+  `pago` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  PRIMARY KEY (`numero_compra`),
+  KEY `ci_cliente` (`ci_cliente`),
+  KEY `id_admin` (`id_admin`),
+  KEY `id_prod` (`id_prod`),
+  CONSTRAINT `recibo_ibfk_1` FOREIGN KEY (`ci_cliente`) REFERENCES `clientes` (`ci`),
+  CONSTRAINT `recibo_ibfk_2` FOREIGN KEY (`id_admin`) REFERENCES `administracion` (`id_admin`),
+  CONSTRAINT `recibo_ibfk_3` FOREIGN KEY (`id_prod`) REFERENCES `productos` (`id_prod`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `recibo`
+--
+
+LOCK TABLES `recibo` WRITE;
+/*!40000 ALTER TABLE `recibo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `recibo` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2022-12-07  7:02:06
